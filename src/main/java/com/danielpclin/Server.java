@@ -103,7 +103,11 @@ public class Server implements Runnable, Broadcastable {
             System.out.println(msg);
         } else {
             msg = sb.toString();
-            broadcast(messageFunction.apply(msg));
+            if (msg.equals("PING")){
+                send("PONG", key);
+            }else{
+                broadcast(messageFunction.apply(msg));
+            }
         }
     }
 
@@ -116,6 +120,15 @@ public class Server implements Runnable, Broadcastable {
                 sch.write(msgBuf);
                 msgBuf.rewind();
             }
+        }
+    }
+
+    public void send(String msg, SelectionKey key) throws IOException {
+        ByteBuffer msgBuf = ByteBuffer.wrap(msg.getBytes());
+        if(key.isValid() && key.channel() instanceof SocketChannel) {
+            SocketChannel sch=(SocketChannel) key.channel();
+            sch.write(msgBuf);
+            msgBuf.rewind();
         }
     }
 

@@ -24,6 +24,7 @@
                 </Label>
                 <Canvas fx:id="holdTetrominoCanvas" width="150" height="150">
                 </Canvas>
+                <Label fx:id="clearedLines">CL: 0</Label>
             </VBox>
             <StackPane>
                 <Canvas fx:id="gameBoardGridCanvas" width="300" height="600">

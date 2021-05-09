@@ -26,6 +26,7 @@ import java.util.regex.Pattern;
 
 public class GameController {
 
+    @FXML private Label clearedLines;
     @FXML private Label messageLabel;
     @FXML private BorderPane boarderPane;
     @FXML private Canvas holdTetrominoCanvas, gameBoardCanvas, gameBoardGridCanvas, nextTetrominoCanvas;
@@ -95,6 +96,16 @@ public class GameController {
 
     @FXML
     private void initialize() {
+        try {
+            startServer();
+        } catch (IOException e) {
+            try {
+                startClient();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+            e.printStackTrace();
+        }
         gameGraphicsContent = gameBoardCanvas.getGraphicsContext2D();
         gameGridGraphicsContent = gameBoardGridCanvas.getGraphicsContext2D();
         holdGraphicsContent = holdTetrominoCanvas.getGraphicsContext2D();
@@ -258,6 +269,7 @@ public class GameController {
         drawTetromino(tetris.getTetromino());
         broadcastMessage(prepareBroadcast(tetris.getGameBoard(), tetris.getTetromino()));
         System.out.println("Cleared Lines - " + tetris.getClearedLines());
+        clearedLines.setText("CL: " + tetris.getClearedLines());
         if (tetris.getClearedLines() >= LINES_TO_WIN) {
             gameOver();
             broadcastGameOver();
@@ -405,13 +417,13 @@ public class GameController {
     }
 
     public void startServer() throws IOException{
-        isServer = true;
-        messageLabel.setText("Waiting for other clients!");
-        startBtn.setVisible(true);
         Server server = new Server((message)->{
             serverReceiveMessage(message);
             return message;
         });
+        isServer = true;
+        messageLabel.setText("Waiting for other clients!");
+        startBtn.setVisible(true);
         broadcastable = server;
         Thread thread = new Thread(server);
         thread.setDaemon(true);
@@ -419,10 +431,10 @@ public class GameController {
     }
 
     public void startClient() throws IOException{
+        Client client = new Client(this::clientReceiveMessage);
         isServer = false;
         messageLabel.setText("Waiting for server!");
         messageLabel.setVisible(true);
-        Client client = new Client(this::clientReceiveMessage);
         broadcastable = client;
         Thread thread = new Thread(client);
         thread.setDaemon(true);

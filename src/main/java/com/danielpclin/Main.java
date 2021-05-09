@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,10 +16,10 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/fxml/gameMenu.fxml"));
+        loader.setLocation(getClass().getResource("/fxml/gameLayout.fxml"));
         Pane root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/css/game.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/css/game.css")).toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.setTitle("Tetris");
         primaryStage.show();
