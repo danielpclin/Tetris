@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.canvas.Canvas?>
+
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.danielpclin.GameController"
+            prefHeight="650.0" prefWidth="1000.0"
+            fx:id="boarderPane">
+    <padding>
+        <Insets topRightBottomLeft="10"/>
+    </padding>
+    <center>
+        <HBox alignment="TOP_CENTER" spacing="10">
+            <VBox alignment="BASELINE_CENTER">
+                <Label>
+                    Hold
+                </Label>
+                <Canvas fx:id="holdTetrominoCanvas" width="150" height="150">
+                </Canvas>
+            </VBox>
+            <StackPane>
+                <Canvas fx:id="gameBoardGridCanvas" width="300" height="600">
+                </Canvas>
+                <Canvas fx:id="gameBoardCanvas" width="300" height="600">
+                </Canvas>
+                <VBox alignment="CENTER" spacing="20">
+                    <Label visible="false" fx:id="messageLabel" styleClass="gameOverlay"/>
+                    <Label visible="false" fx:id="gameoverLabel" styleClass="gameOverlay">
+                        GameOver!
+                    </Label>
+                    <Button onAction="#startGameBtnHandler" fx:id="startBtn" focusTraversable="false" visible="false">
+                        Start
+                    </Button>
+                </VBox>
+            </StackPane>
+            <VBox alignment="BASELINE_CENTER">
+                <Label>
+                    Next
+                </Label>
+                <Canvas fx:id="nextTetrominoCanvas" width="150" height="100">
+                </Canvas>
+            </VBox>
+        </HBox>
+    </center>
+    <right>
+        <fx:define>
+            <ArrayList fx:id="sideGameCanvas">
+                <Canvas fx:id="sideGameCanvas1" width="150" height="300"/>
+                <Canvas fx:id="sideGameCanvas2" width="150" height="300"/>
+                <Canvas fx:id="sideGameCanvas3" width="150" height="300"/>
+                <Canvas fx:id="sideGameCanvas4" width="150" height="300"/>
+            </ArrayList>
+            <ArrayList fx:id="sideGridCanvas">
+                <Canvas fx:id="sideGridCanvas1" width="150" height="300"/>
+                <Canvas fx:id="sideGridCanvas2" width="150" height="300"/>
+                <Canvas fx:id="sideGridCanvas3" width="150" height="300"/>
+                <Canvas fx:id="sideGridCanvas4" width="150" height="300"/>
+            </ArrayList>
+        </fx:define>
+        <VBox alignment="CENTER" spacing="10">
+            <HBox alignment="CENTER" spacing="10">
+                <StackPane>
+                    <fx:reference source="sideGridCanvas1"/>
+                    <fx:reference source="sideGameCanvas1"/>
+                </StackPane>
+                <StackPane>
+                    <fx:reference source="sideGridCanvas2"/>
+                    <fx:reference source="sideGameCanvas2"/>
+                </StackPane>
+            </HBox>
+            <HBox alignment="CENTER" spacing="10">
+                <StackPane>
+                    <fx:reference source="sideGridCanvas3"/>
+                    <fx:reference source="sideGameCanvas3"/>
+                </StackPane>
+                <StackPane>
+                    <fx:reference source="sideGridCanvas4"/>
+                    <fx:reference source="sideGameCanvas4"/>
+                </StackPane>
+            </HBox>
+        </VBox>
+    </right>
+</BorderPane>

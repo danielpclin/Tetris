@@ -1,0 +1,27 @@
+.root{
+    -fx-font-size: 2em;
+    -fx-text-base-color: #929292;
+    -fx-base: #2d2d2d;
+    -fx-background: derive(-fx-base,26.4%);
+}
+.button{
+    -fx-pref-width: 100;
+    -fx-border-radius: 5;
+    -fx-highlight-fill: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+    -fx-focus-traversable: false;
+}
+.button:focused{
+    -fx-background-color: -fx-outer-border, -fx-inner-border, -fx-body-color;
+    -fx-background-insets: 0, 1, 2;
+    -fx-background-radius: 5, 4, 3;
+}
+.gameOverlay{
+    -fx-background-color: #c1c1c1;
+    -fx-text-fill: #202020;
+    -fx-padding: 5;
+}
+.test{
+    -fx-background-color: yellow;
+}
