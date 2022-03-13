@@ -18,7 +18,6 @@ import javafx.scene.layout.HBox;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.regex.Pattern;
 
 public class GameController {
 
@@ -30,13 +29,11 @@ public class GameController {
     @FXML private Button startBtn;
 
     private static final int BLOCK_PIXEL_LENGTH = 30;
-    private static final int MAX_PLAYERS = 4;
     private static final int LINES_TO_WIN = 40;
     private GraphicsContext gameGraphicsContent, gameGridGraphicsContent,
             nextGraphicsContent, holdGraphicsContent;
     private Timer gameTimer;
     private Tetris tetris;
-    private final Pattern socketAddressPattern = Pattern.compile("^(\\[(?:(?:\\w+|(?:[0-9]{1,3}\\.){3}[0-9]{1,3}):\\d*)]): \\((\\d+)\\)([NIOTLJSZ]{200})");
 
     private final EventHandler<KeyEvent> gameEventHandler = e-> {
         e.consume();
@@ -292,7 +289,6 @@ public class GameController {
             }, 750);
         }
     }
-
 
     public void start() throws IOException{
         startBtn.setVisible(true);

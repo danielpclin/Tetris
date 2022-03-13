@@ -1,15 +1,12 @@
 package com.danielpclin;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Main extends Application {
 
