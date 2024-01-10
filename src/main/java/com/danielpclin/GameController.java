@@ -17,10 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -99,12 +96,8 @@ public class GameController {
         try {
             startServer();
         } catch (IOException e) {
-            try {
-                startClient();
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
-            e.printStackTrace();
+            System.out.println("Info: Can't bind to server port. Server already exists!");
+            startClient();
         }
         gameGraphicsContent = gameBoardCanvas.getGraphicsContext2D();
         gameGridGraphicsContent = gameBoardGridCanvas.getGraphicsContext2D();
@@ -155,7 +148,7 @@ public class GameController {
                 } else {
                     gameOver();
                     Platform.runLater(()->{
-                        if (isServer && sideClientsInPlay.size() > 0) {
+                        if (isServer && !sideClientsInPlay.isEmpty()) {
                             messageLabel.setVisible(true);
                             startBtn.setVisible(false);
                         }
@@ -201,8 +194,8 @@ public class GameController {
     }
 
     private void drawGrid(GraphicsContext graphicsContext, int pixelWidth){
-        Image background1 = new Image(getClass().getResource("/img/background1.png").toExternalForm());
-        Image background2 = new Image(getClass().getResource("/img/background2.png").toExternalForm());
+        Image background1 = new Image(Objects.requireNonNull(getClass().getResource("/img/background1.png")).toExternalForm());
+        Image background2 = new Image(Objects.requireNonNull(getClass().getResource("/img/background2.png")).toExternalForm());
         for (int x = 0; x < pixelWidth * Board.BOARD_WIDTH; x += pixelWidth){
             for (int y = 0; y < pixelWidth * Board.BOARD_HEIGHT; y += pixelWidth){
                 if ((x+y) % (2 * pixelWidth) == 0) {
@@ -430,7 +423,7 @@ public class GameController {
         thread.start();
     }
 
-    public void startClient() throws IOException{
+    public void startClient() {
         Client client = new Client(this::clientReceiveMessage);
         isServer = false;
         messageLabel.setText("Waiting for server!");
